@@ -28,6 +28,7 @@
 
   if (myBid > currentPrice) {
     currentPrice = myBid;
+    document.getElementById("currentPrice").textContent = "฿" + myBid.toLocaleString();
     let name = document.getElementById("name").value || "ไม่ระบุชื่อ";
     let item = document.createElement("li");
     item.textContent = name + " — ฿" + myBid.toLocaleString();
@@ -45,7 +46,7 @@
   <body>
     <h1>🏆 ประมูลสินค้า</h1>
     <h2>กีตาร์ Gibson Les Paul</h2>
-    <p>ราคาปัจจุบัน: <strong>฿15,000</strong></p>
+    <p>ราคาปัจจุบัน: <strong id="currentPrice">฿15,000</strong></p>
     <p>เวลาที่เหลือ: <strong id="timer">--:--:--</strong></p>
     
     <input id="name" type="text" placeholder="ใส่ชื่อของคุณ">
