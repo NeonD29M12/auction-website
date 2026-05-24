@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8">
+    <title>เว็บประมูล</title>
+  </head>
+
+  <script>
+  let seconds = 9000;
+
+  setInterval(function() {
+    seconds--;
+
+    let h = Math.floor(seconds / 3600);
+    let m = Math.floor((seconds % 3600) / 60);
+    let s = seconds % 60;
+
+    document.getElementById("timer").textContent = 
+      h + ":" + 
+      String(m).padStart(2, "0") + ":" + 
+      String(s).padStart(2, "0");
+  }, 1000);
+
+  let currentPrice = 15000;
+
+function placeBid() {
+  let myBid = Number(document.getElementById("bid").value);
+
+  if (myBid > currentPrice) {
+    currentPrice = myBid;
+    document.getElementById("message").textContent = 
+      "✅ ประมูลสำเร็จ! ราคาใหม่: ฿" + myBid.toLocaleString();
+  } else {
+    document.getElementById("message").textContent = 
+      "❌ ราคาต้องสูงกว่า ฿" + currentPrice.toLocaleString();
+  }
+}
+
+</script>
+
+  <body>
+    <h1>🏆 ประมูลสินค้า</h1>
+    <h2>กีตาร์ Gibson Les Paul</h2>
+    <p>ราคาปัจจุบัน: <strong>฿15,000</strong></p>
+    <p>เวลาที่เหลือ: <strong id="timer">--:--:--</strong></p>
+    
+    <input id="bid" type="number" placeholder="ใส่ราคาที่อยากประมูล">
+    <button onclick="placeBid()">ประมูลเลย</button>
+    <p id="message"></p>
+
+  </body>
+</html>
+
+<link rel="stylesheet" href="style.css">
+
+<img src="guitar.png" 
+     alt="กีตาร์" 
+     width="200">
