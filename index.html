@@ -23,11 +23,14 @@
 
   let currentPrice = 15000;
 
-function placeBid() {
+  function placeBid() {
   let myBid = Number(document.getElementById("bid").value);
 
   if (myBid > currentPrice) {
     currentPrice = myBid;
+    let item = document.createElement("li");
+    item.textContent = "฿" + myBid.toLocaleString();
+    document.getElementById("history").prepend(item);
     document.getElementById("message").textContent = 
       "✅ ประมูลสำเร็จ! ราคาใหม่: ฿" + myBid.toLocaleString();
   } else {
@@ -47,6 +50,8 @@ function placeBid() {
     <input id="bid" type="number" placeholder="ใส่ราคาที่อยากประมูล">
     <button onclick="placeBid()">ประมูลเลย</button>
     <p id="message"></p>
+    <h3>ประวัติการประมูล</h3>
+    <ul id="history"></ul>
 
   </body>
 </html>
