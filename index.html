@@ -2,77 +2,15 @@
 <html lang="th">
   <head>
     <meta charset="UTF-8">
-    <title>เว็บประมูล</title>
+    <title>BidZone</title>
+    <link rel="stylesheet" href="style.css">
   </head>
-
-  <script>
-  let seconds = 5;
-
-  setInterval(function() {
-
-    if (seconds <= 0) {
-  document.getElementById("ended").style.display = "block";
-  document.getElementById("winner").textContent = 
-    document.querySelector("#history li") ? 
-    document.querySelector("#history li").textContent : "ไม่มีผู้ประมูล";
-  document.getElementById("finalPrice").textContent = "฿" + currentPrice.toLocaleString();
-  return;
-}
-
-seconds--;
-
-    let h = Math.floor(seconds / 3600);
-    let m = Math.floor((seconds % 3600) / 60);
-    let s = seconds % 60;
-
-    document.getElementById("timer").textContent = 
-      h + ":" + 
-      String(m).padStart(2, "0") + ":" + 
-      String(s).padStart(2, "0");
-  }, 1000);
-
-  let currentPrice = 15000;
-
-  function playSound() {
-  let audio = new AudioContext();
-  let osc = audio.createOscillator();
-  let gain = audio.createGain();
-  osc.connect(gain);
-  gain.connect(audio.destination);
-  osc.frequency.value = 880;
-  gain.gain.setValueAtTime(0.3, audio.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.5);
-  osc.start();
-  osc.stop(audio.currentTime + 0.5);
-}
-
-  function placeBid() {
-  let myBid = Number(document.getElementById("bid").value);
-
-  if (myBid > currentPrice) {
-    currentPrice = myBid;
-    playSound();
-    document.getElementById("currentPrice").textContent = "฿" + myBid.toLocaleString();
-    let name = document.getElementById("name").value || "ไม่ระบุชื่อ";
-    let item = document.createElement("li");
-    item.textContent = name + " — ฿" + myBid.toLocaleString();
-    document.getElementById("history").prepend(item);
-    document.getElementById("message").textContent = 
-      "✅ ประมูลสำเร็จ! ราคาใหม่: ฿" + myBid.toLocaleString();
-  } else {
-    document.getElementById("message").textContent = 
-      "❌ ราคาต้องสูงกว่า ฿" + currentPrice.toLocaleString();
-  }
-}
-
-</script>
-
   <body>
     <h1>🏆 ประมูลสินค้า</h1>
     <h2>กีตาร์ Gibson Les Paul</h2>
+    <img src="guitar.png" alt="กีตาร์">
     <p>ราคาปัจจุบัน: <strong id="currentPrice">฿15,000</strong></p>
     <p>เวลาที่เหลือ: <strong id="timer">--:--:--</strong></p>
-    
     <input id="name" type="text" placeholder="ใส่ชื่อของคุณ">
     <input id="bid" type="number" placeholder="ใส่ราคาที่อยากประมูล">
     <button onclick="placeBid()">ประมูลเลย</button>
@@ -80,17 +18,70 @@ seconds--;
     <h3>ประวัติการประมูล</h3>
     <ul id="history"></ul>
 
+    <div id="ended" style="display:none">
+      <h2>🏆 การประมูลจบแล้ว!</h2>
+      <p>ผู้ชนะคือ <strong id="winner"></strong></p>
+      <p>ราคาสุดท้าย <strong id="finalPrice"></strong></p>
+    </div>
+
+    <script>
+      let seconds = 9000;
+
+      setInterval(function() {
+        if (seconds <= 0) {
+          document.getElementById("ended").style.display = "block";
+          document.getElementById("winner").textContent = 
+            document.querySelector("#history li") ? 
+            document.querySelector("#history li").textContent : "ไม่มีผู้ประมูล";
+          document.getElementById("finalPrice").textContent = "฿" + currentPrice.toLocaleString();
+          return;
+        }
+
+        seconds--;
+
+        let h = Math.floor(seconds / 3600);
+        let m = Math.floor((seconds % 3600) / 60);
+        let s = seconds % 60;
+
+        document.getElementById("timer").textContent = 
+          h + ":" + 
+          String(m).padStart(2, "0") + ":" + 
+          String(s).padStart(2, "0");
+      }, 1000);
+
+      let currentPrice = 15000;
+
+      function playSound() {
+        let audio = new AudioContext();
+        let osc = audio.createOscillator();
+        let gain = audio.createGain();
+        osc.connect(gain);
+        gain.connect(audio.destination);
+        osc.frequency.value = 880;
+        gain.gain.setValueAtTime(0.3, audio.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.5);
+        osc.start();
+        osc.stop(audio.currentTime + 0.5);
+      }
+
+      function placeBid() {
+        let myBid = Number(document.getElementById("bid").value);
+
+        if (myBid > currentPrice) {
+          currentPrice = myBid;
+          playSound();
+          document.getElementById("currentPrice").textContent = "฿" + myBid.toLocaleString();
+          let name = document.getElementById("name").value || "ไม่ระบุชื่อ";
+          let item = document.createElement("li");
+          item.textContent = name + " — ฿" + myBid.toLocaleString();
+          document.getElementById("history").prepend(item);
+          document.getElementById("message").textContent = 
+            "✅ ประมูลสำเร็จ! ราคาใหม่: ฿" + myBid.toLocaleString();
+        } else {
+          document.getElementById("message").textContent = 
+            "❌ ราคาต้องสูงกว่า ฿" + currentPrice.toLocaleString();
+        }
+      }
+    </script>
   </body>
 </html>
-
-<link rel="stylesheet" href="style.css">
-
-<img src="guitar.png" 
-     alt="กีตาร์" 
-     width="200">
-
-<div id="ended" style="display:none">
-  <h2>🏆 การประมูลจบแล้ว!</h2>
-  <p>ผู้ชนะคือ <strong id="winner"></strong></p>
-  <p>ราคาสุดท้าย <strong id="finalPrice"></strong></p>
-</div>
