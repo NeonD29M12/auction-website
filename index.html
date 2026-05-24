@@ -28,8 +28,9 @@
 
   if (myBid > currentPrice) {
     currentPrice = myBid;
+    let name = document.getElementById("name").value || "ไม่ระบุชื่อ";
     let item = document.createElement("li");
-    item.textContent = "฿" + myBid.toLocaleString();
+    item.textContent = name + " — ฿" + myBid.toLocaleString();
     document.getElementById("history").prepend(item);
     document.getElementById("message").textContent = 
       "✅ ประมูลสำเร็จ! ราคาใหม่: ฿" + myBid.toLocaleString();
@@ -47,6 +48,7 @@
     <p>ราคาปัจจุบัน: <strong>฿15,000</strong></p>
     <p>เวลาที่เหลือ: <strong id="timer">--:--:--</strong></p>
     
+    <input id="name" type="text" placeholder="ใส่ชื่อของคุณ">
     <input id="bid" type="number" placeholder="ใส่ราคาที่อยากประมูล">
     <button onclick="placeBid()">ประมูลเลย</button>
     <p id="message"></p>
