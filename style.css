@@ -14,8 +14,8 @@ h1 {
 img {
   border-radius: 12px;
   display: block;
-  margin: 16px 0;
-  width: 100%;
+  margin: 16px auto;
+  width: 250px;
 }
 
 input {
@@ -53,4 +53,17 @@ button:hover {
   padding: 10px 16px;
   border-radius: 8px;
   margin: 6px 0;
+}
+
+#ended {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #16213e;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  border: 2px solid #e94560;
+  z-index: 999;
 }

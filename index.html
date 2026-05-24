@@ -6,10 +6,20 @@
   </head>
 
   <script>
-  let seconds = 9000;
+  let seconds = 5;
 
   setInterval(function() {
-    seconds--;
+
+    if (seconds <= 0) {
+  document.getElementById("ended").style.display = "block";
+  document.getElementById("winner").textContent = 
+    document.querySelector("#history li") ? 
+    document.querySelector("#history li").textContent : "ไม่มีผู้ประมูล";
+  document.getElementById("finalPrice").textContent = "฿" + currentPrice.toLocaleString();
+  return;
+}
+
+seconds--;
 
     let h = Math.floor(seconds / 3600);
     let m = Math.floor((seconds % 3600) / 60);
@@ -78,3 +88,9 @@
 <img src="guitar.png" 
      alt="กีตาร์" 
      width="200">
+
+<div id="ended" style="display:none">
+  <h2>🏆 การประมูลจบแล้ว!</h2>
+  <p>ผู้ชนะคือ <strong id="winner"></strong></p>
+  <p>ราคาสุดท้าย <strong id="finalPrice"></strong></p>
+</div>
